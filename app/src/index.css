@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ヘッダ */
+.header{
+  height: 75px;
+  background-color: #735EAB;
+  color: white;
+  font-size: 2.2rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+/* ログインページ */
+.login{
+  margin-top: 200px;
+}
+
+.login > div{
+  margin-top: 50px;
+}
