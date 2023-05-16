@@ -12,6 +12,7 @@ code {
     monospace;
 }
 
+
 /* ヘッダ */
 .header{
   height: 75px;
@@ -28,6 +29,11 @@ code {
   margin-top: 200px;
 }
 
+
+/* ナビゲーション */
+.Navi{
+  display: inline-block;
+}
 .login > div{
   margin-top: 50px;
 }
