@@ -6,7 +6,8 @@ export class Login extends React.Component {
 
 	constructor(props) {
     super(props);
-    this.state = {id: '', passwd: ''};
+
+    this.state = {id: '', passwd: '', isCorrect: false};
   }
 
 	IDUpdate = (event) => {
@@ -19,7 +20,13 @@ export class Login extends React.Component {
 
 	// ログイン処理
 	login = () => {
-		console.log(`login with '${this.state.id}', '${this.state.passwd}'`);
+		if(this.state.id === 'aaa' && this.state.passwd === 'bbb'){
+			console.log(`login with '${this.state.id}', '${this.state.passwd}'`);
+			this.props.handleValueChange(true);
+		}else{
+			this.setState({isCorrect: true})
+			console.log(this.state.isCorrect);
+		}
 	}
 
 	render(){
@@ -31,7 +38,9 @@ export class Login extends React.Component {
 						label="ユーザーネーム"
 						type="name"
 						autoComplete="current-password"
+						helperText={(this.state.isCorrect)? "入力が不正確です。":""}
 						onChange={this.IDUpdate}
+						error={this.state.isCorrect}
 					/>
 				</div>
 				<div>
@@ -40,7 +49,9 @@ export class Login extends React.Component {
 						label="パスワード"
 						type="password"
 						autoComplete="current-password"
+						helperText={(this.state.isCorrect)? "入力が不正確です。":""}
 						onChange={this.passwdUpdate}
+						error={this.state.isCorrect}
 					/>
 				</div>
 				<div>
