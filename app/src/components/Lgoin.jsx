@@ -24,8 +24,7 @@ export class Login extends React.Component {
 			console.log(`login with '${this.state.id}', '${this.state.passwd}'`);
 			this.props.handleValueChange(true);
 		}else{
-			this.setState({isCorrect: true})
-			console.log(this.state.isCorrect);
+			this.setState({isCorrect: true});
 		}
 	}
 
