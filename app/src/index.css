@@ -19,12 +19,23 @@ code {
 
 /* ヘッダ */
 .header{
-  height: 75px;
+  height: 70px;
   background-color: #735EAB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.header > h1 {
   color: white;
   font-size: 2.2rem;
   text-align: center;
-  vertical-align: middle;
+  flex-grow: 1;
+}
+
+.header > .setting {
+  margin-left: auto;
 }
 
 

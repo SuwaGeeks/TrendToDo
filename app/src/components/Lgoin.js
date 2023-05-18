@@ -9,6 +9,19 @@ export class Login extends React.Component {
     this.state = {id: '', passwd: ''};
   }
 
+	IDUpdate = (event) => {
+		this.setState({id: event.target.value});
+	}
+
+	passwdUpdate = (event) => {
+		this.setState({passwd: event.target.value});
+	}
+
+	// ログイン処理
+	login = () => {
+		console.log(`login with '${this.state.id}', '${this.state.passwd}'`);
+	}
+
 	render(){
 		return (
 			<div className='login'>
@@ -18,6 +31,7 @@ export class Login extends React.Component {
 						label="ユーザーネーム"
 						type="name"
 						autoComplete="current-password"
+						onChange={this.IDUpdate}
 					/>
 				</div>
 				<div>
@@ -26,10 +40,11 @@ export class Login extends React.Component {
 						label="パスワード"
 						type="password"
 						autoComplete="current-password"
+						onChange={this.passwdUpdate}
 					/>
 				</div>
 				<div>
-					<Button variant="contained" size="medium">
+					<Button variant="contained" size="medium" onClick={this.login}>
 						ログイン
 					</Button>
 				</div>
