@@ -37,3 +37,12 @@ code {
 .login > div{
   margin-top: 50px;
 }
+
+/* パーソナルタスク */
+.submit{
+  display: inline-block;
+}
+
+.shimekiri{
+  display: inline-block;
+}
