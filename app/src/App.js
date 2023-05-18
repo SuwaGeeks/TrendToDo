@@ -4,6 +4,7 @@ import { Login } from "./components/Lgoin";
 import { TheHeader } from "./components/TheHeader";
 import { Navigation } from "./components/Navigation";
 // import { Add_Personal_Task } from './components/Add_Personal_Task';
+import { TaskList } from './components/TaskList'; 
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
     return(
       <div className="App">
         <TheHeader />
+        <TaskList  tasks={[{'title':'aaa論', 'detail':'200字のレポート'},{'title':'bbb論', 'detail':'200字のレポート'}]} />
         {/* <Add_Personal_Task /> */}
         <Navigation />
       </div>
