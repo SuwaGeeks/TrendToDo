@@ -33,6 +33,7 @@ code {
 /* ナビゲーション */
 .Navi{
   display: inline-block;
+  width: 100%;
 }
 .login > div{
   margin-top: 50px;

@@ -11,7 +11,7 @@ export  function Navigation() {
 
   return (
     <div className="Navi">
-    <Box sx={{ width: 500 }}>
+    <Box>
       <BottomNavigation
         showLabels
         value={value}
@@ -19,9 +19,9 @@ export  function Navigation() {
           setValue(newValue);
         }}
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="個人" icon={<RestoreIcon />} />
+        <BottomNavigationAction label="ホーム" icon={<FavoriteIcon />} />
+        <BottomNavigationAction label="授業" icon={<LocationOnIcon />} />
       </BottomNavigation>
     </Box>
     </div>
