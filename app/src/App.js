@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import './App.css';
 import { Login } from "./components/Lgoin";
 import { TheHeader } from "./components/TheHeader";
-import { Navigation } from "./components/Navigation";
-// import { Add_Personal_Task } from './components/Add_Personal_Task';
+import { Home } from "./components/Home";
 
 function App() {
 
   // ログイン状態
   const [isLogined, setValue] = useState(false);
-
-  const handleValueChange = (newValue) => {
-    setValue(newValue);
-  };
 
 
   if(!isLogined){
@@ -20,7 +15,7 @@ function App() {
     return (
       <div className="App">
         <TheHeader />
-        <Login handleValueChange={handleValueChange} />
+        <Login handleValueChange={ (newValue)=>{setValue(newValue)} } />
       </div>
     );
   }else{
@@ -28,8 +23,7 @@ function App() {
     return(
       <div className="App">
         <TheHeader />
-        {/* <Add_Personal_Task /> */}
-        <Navigation />
+        <Home />
       </div>
     );
     
