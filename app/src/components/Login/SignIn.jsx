@@ -2,11 +2,10 @@ import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-export class Login extends React.Component {
+export class SignIn extends React.Component {
 
 	constructor(props) {
     super(props);
-
     this.state = {id: '', passwd: '', isCorrect: false};
   }
 
