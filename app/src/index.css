@@ -63,3 +63,17 @@ code {
 .shimekiri{
   display: inline-block;
 }
+
+.Picon{
+  text-align: left;
+  float: left;
+  clear: left;
+}
+
+.Ptask{
+  text-align: left;
+}
+
+.Pcom{
+  clear: right;
+}

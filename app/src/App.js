@@ -25,9 +25,10 @@ function App() {
     return(
       <div className="App">
         <TheHeader />
+        <Home />
         <TaskList  tasks={[{'title':'aaa論', 'detail':'200字のレポート'},{'title':'bbb論', 'detail':'200字のレポート'}]} />
         {/* <Add_Personal_Task /> */}
-        <Home />
+       
       </div>
     );
     
