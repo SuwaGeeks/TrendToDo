@@ -77,3 +77,27 @@ code {
 .Pcom{
   clear: right;
 }
+.Padd{
+  float: right;
+}
+
+/* タスク詳細 */
+
+.Dmenu{
+  text-align: center;
+}
+.Dback{
+  text-align: left;
+  float: left;
+  clear: left;
+}
+
+.Dtitle{
+  text-align: left;
+  clear: right;
+  font-size: larger;
+}
+
+.Dline{
+  background-color: gray;
+}

@@ -8,7 +8,7 @@ import HomeIcon from '@mui/icons-material/Home';
 
 
 export  function Navigation(props) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
 
   return (
     <div className="Navi">
