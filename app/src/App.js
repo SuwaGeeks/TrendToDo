@@ -3,14 +3,11 @@ import './App.css';
 import { Login } from "./components/Lgoin";
 import { TheHeader } from "./components/TheHeader";
 import { Home } from "./components/Home";
-import { TaskList } from './components/TaskList';
-import { Navigation } from './components/Navigation';
 
 function App() {
 
   // ログイン状態
   const [isLogined, setValue] = useState(false);
-
 
   if(!isLogined){
     // ログインしていない状態
