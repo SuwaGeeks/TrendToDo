@@ -20,7 +20,7 @@ export function SignUp(props) {
 					label="ユーザーネーム"
 					type="name"
 					autoComplete="current-password"
-					helperText={(isCorrect) ? eMsg : ""}
+					// helperText={(isCorrect) ? eMsg : ""}
 					onChange={(e)=>{setName(e.target.value)}}
 					error={isCorrect}
 				/>

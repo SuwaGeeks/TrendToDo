@@ -28,7 +28,7 @@ export class SignIn extends React.Component {
 						label="ユーザーネーム"
 						type="name"
 						autoComplete="current-password"
-						helperText={(this.state.isCorrect)? this.state.eMsg:""}
+						// helperText={(this.state.isCorrect)? this.state.eMsg:""}
 						onChange={this.IDUpdate}
 						error={this.state.isCorrect}
 					/>
