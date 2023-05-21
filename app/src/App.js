@@ -8,13 +8,14 @@ function App() {
 
   // ログイン状態
   const [isLogined, setLoginState] = useState(false);
+  const [UserID, setUserID] = useState('');
 
   if(!isLogined){
     // ログインしていない状態
     return (
       <div className="App">
         <TheHeader handleValueChange={ setLoginState } />
-        <Login handleValueChange={ setLoginState } />
+        <Login setLoginState={ setLoginState } setUserID={setUserID} />
       </div>
     );
   }else{
