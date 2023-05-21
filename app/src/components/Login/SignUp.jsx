@@ -3,11 +3,14 @@ import { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
+import { createUser } from "../../utils/Users";
+
 export function SignUp(props) {
 
 	const [name, setName] = useState('');
 	const [passwd, setPasswd] = useState('');
 	const [isCorrect, setIsCorrect] = useState(false);
+	const [eMsg, setErrMsg] = useState('');
 
 	return (
 		<div className='login'>
@@ -17,7 +20,7 @@ export function SignUp(props) {
 					label="ユーザーネーム"
 					type="name"
 					autoComplete="current-password"
-					helperText={(isCorrect) ? "入力が不正確です。" : ""}
+					helperText={(isCorrect) ? eMsg : ""}
 					onChange={(e)=>{setName(e.target.value)}}
 					error={isCorrect}
 				/>
@@ -28,7 +31,7 @@ export function SignUp(props) {
 					label="パスワード"
 					type="password"
 					autoComplete="current-password"
-					helperText={(isCorrect) ? "入力が不正確です。" : ""}
+					helperText={(isCorrect) ? eMsg : ""}
 					onChange={(e)=>{setPasswd(e.target.value)}}
 					error={isCorrect}
 				/>
@@ -40,15 +43,17 @@ export function SignUp(props) {
 				戻る
 			</Button>
 				<Button variant="contained" size="medium" onClick={()=>{
-					alert('登録しました。');
-					/* TODO: 通信 */
-					// waring 消し
-					console.log(name);
-					console.log(passwd);
-					console.log(isCorrect);
-					setIsCorrect(isCorrect);
-
-					props.handleValueChange(true);
+					createUser(name, passwd).then(res => {
+						// console.log(res);
+						if(res.message){
+							setErrMsg(res.message);
+							setIsCorrect(true);
+						}else{
+							alert('登録しました。');
+							props.handleValueChange(true);
+						}
+					});
+					
 				}}>
 					登録
 				</Button>
