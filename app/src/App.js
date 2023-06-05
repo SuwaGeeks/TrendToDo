@@ -23,7 +23,7 @@ function App() {
     return(
       <div className="App">
         <TheHeader TheHeader handleValueChange={ setLoginState } />
-        <Home />
+        <Home UserID={UserID} />
       </div>
     );
     

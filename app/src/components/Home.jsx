@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { Navigation } from "./Navigation";
 import { TaskList } from './TaskList';
 import { AddPersonalTask } from './AddPersonalTask';
+import { AddGroupTask } from "./AddGroupTask";
 import { DoneTask } from './DoneTask';
+import { AddGroup } from "./addGroup";
+import { Result } from './Result';
 
-export  function Home() {
+export  function Home(props) {
     const [tabState, setValue] = useState(1);
     const [AddTasks, AValue] = useState(0);
     return (
@@ -15,8 +18,10 @@ export  function Home() {
                 <div>
                     {
                         AddTasks===0&&
-                        <TaskList isPrivate={true} tasks={[{'title':'aaa論', 'detail':'200字のレポート'},{'title':'bbb論', 'detail':'200字のレポート'}]} ValueChange={AValue}/>
-
+                        <div>
+                            <TaskList isPrivate={true} tasks={[{'title':'aaa論', 'detail':'200字のレポート'},{'title':'bbb論', 'detail':'200字のレポート'}]} ValueChange={AValue}/>
+                            <AddGroup userID={props.UserID} />
+                        </div>
                     }
                     {
                         AddTasks===1&&
@@ -25,6 +30,14 @@ export  function Home() {
                     {
                         AddTasks===2&&
                         <DoneTask ValueChange={AValue}/>
+                    }
+                    {
+                        AddTasks===3&&
+                        <Result ValueChange={AValue}/>
+                    }
+                    {
+                        AddTasks===4&&
+                        <AddGroupTask ValueChange={AValue}/>
                     }
                     
                 </div>
@@ -36,8 +49,9 @@ export  function Home() {
                    {
                         AddTasks===0&&
                         <div>
-                        <TaskList isPrivate={true} tasks={[{'title':'aaa論', 'detail':'200字のレポート'},{'title':'bbb論', 'detail':'200字のレポート'}]} ValueChange={AValue}/>
-                        <TaskList isPrivate={false} tasks={[{'title':'aaa論', 'detail':'200字のレポート'},{'title':'bbb論', 'detail':'200字のレポート'}]} ValueChange={AValue}/>
+                            <TaskList isPrivate={true} tasks={[{'title':'aaa論', 'detail':'200字のレポート'},{'title':'bbb論', 'detail':'200字のレポート'}]} ValueChange={AValue}/>
+                            <TaskList isPrivate={false} tasks={[{'title':'aaa論', 'detail':'200字のレポート', rating: 3.4, time:'4:32'},{'title':'bbb論', 'detail':'200字のレポート', rating: 4.9, time:'1:24'}]} ValueChange={AValue}/>
+                            <AddGroup userID={props.UserID} />
                         </div>
 
                     }
@@ -48,6 +62,14 @@ export  function Home() {
                     {
                         AddTasks===2&&
                         <DoneTask ValueChange={AValue}/>
+                    }
+                     {
+                        AddTasks===3&&
+                        <Result ValueChange={AValue}/>
+                    }
+                    {
+                        AddTasks===4&&
+                        <AddGroupTask ValueChange={AValue}/>
                     }
                 </div>
                 
@@ -60,7 +82,8 @@ export  function Home() {
                     {
                         AddTasks===0&&
                         <div>
-                        <TaskList isPrivate={false} tasks={[{'title':'aaa論', 'detail':'200字のレポート'},{'title':'bbb論', 'detail':'200字のレポート'}]} ValueChange={AValue}/>
+                            <TaskList isPrivate={false} tasks={[{'title':'aaa論', 'detail':'200字のレポート', rating: 3.4, time:'4:32'},{'title':'bbb論', 'detail':'200字のレポート', rating: 4.9, time:'1:24'}]} ValueChange={AValue}/>
+                            <AddGroup userID={props.UserID} />
                         </div>
 
                     }
@@ -71,6 +94,14 @@ export  function Home() {
                     {
                         AddTasks===2&&
                         <DoneTask ValueChange={AValue}/>
+                    }
+                     {
+                        AddTasks===3&&
+                        <Result ValueChange={AValue}/>
+                    }
+                    {
+                        AddTasks===4&&
+                        <AddGroupTask ValueChange={AValue}/>
                     }
                 </div>
             }

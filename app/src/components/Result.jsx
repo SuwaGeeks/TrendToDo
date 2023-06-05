@@ -6,10 +6,10 @@ import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
 
 
-export function Result() {
+export function Result(props) {
   return (
-    <div className='Result'>
-      <div>
+    <div className='RAll'>
+      <div className='Rtime'>
         <h1>所要時間</h1>
         <Box
           component="form"
@@ -19,19 +19,22 @@ export function Result() {
           noValidate
           autoComplete="off"
         >
-          <TextField
-            id="outlined-number"
-            label="所要時間"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
+          <div className='Rtime'>
+            <TextField
+              id="outlined-number"
+              label="所要時間"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </div>
         </Box>
       </div>
 
       <div>
         <h1>大変さ</h1>
+        <div className='Rtime'>
         <Box sx={{ width: 300 }}>
           <Slider
             aria-label="Temperature"
@@ -43,17 +46,24 @@ export function Result() {
             max={5}
           />
         </Box>
+        </div>
       </div>
 
       <div className='Dline'></div>
 
       <Stack direction="row" spacing={2}>
-        <Button variant="contained" >
-          決定
-        </Button>
-        <Button variant="outlined">
-          戻る
-        </Button>
+        <a href='/' onClick={(e) => {
+          e.preventDefault();
+          props.ValueChange(0);
+        }}><Button variant="contained" >
+            決定
+          </Button></a>
+        <a href='/' onClick={(e) => {
+          e.preventDefault();
+          props.ValueChange(2);
+        }}><Button variant="contained" >
+            戻る
+          </Button></a>
       </Stack>
     </div>
 

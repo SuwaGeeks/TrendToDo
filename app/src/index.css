@@ -16,6 +16,10 @@ code {
   position: relative;
 }
 
+.div-inline{
+  display: inline-block; _display: inline;
+}
+
 
 /* ヘッダ */
 .header{
@@ -83,9 +87,7 @@ code {
 
 /* タスク詳細 */
 
-.Dmenu{
-  text-align: center;
-}
+
 .Dback{
   text-align: left;
   float: left;
@@ -97,8 +99,80 @@ code {
   clear: right;
   font-size: larger;
 }
+.Ddetail{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+.DDD{
+  text-align: center;
+  margin-top: 20px;
+}
 
 .Dline{
   background-color: gray;
   height: 3px;
+}
+
+.Dbutton{
+  margin-top: 20px;
+}
+
+/* 完了画面 */
+.Rtime{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.RAll{
+  margin: 0 auto;
+}
+
+a{
+  text-decoration: none;
+  color:black;
+}
+
+/* タスクリスト */
+
+.TaskList{
+  background-color: #ECE6F0;
+  border-radius: 18px;
+  padding: 40px;
+  margin: 20px;
+}
+
+.TaskList > table{
+  margin-left: 10px ;
+  padding-bottom: 150px;
+}
+
+.element{
+  color: #1d1c20;
+}
+
+.elem-icon{
+  margin: 8px;
+}
+
+.wrapper{
+  display: flex;
+  margin-bottom: 20px;
+  margin-left: 20px ;
+  border-bottom: gray solid 1px;
+}
+
+.elem-title, .elem-detail{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.elem-status{
+  display: flex;
+  flex-direction: row;
 }

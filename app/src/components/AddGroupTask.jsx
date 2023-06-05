@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -12,10 +12,17 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 //const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
-export function AddPersonalTask(props) {
+export function AddGroupTask(props) {
+
+  const [groupName, setGroupName] = useState('');
+  const [taskName, setTaskName] = useState('');
+  const [detail, setDetail] = useState('');
+  const [dateStr, setDateStr] = useState('');
+  const [timeStr, setTimeStr] = useState('');
+
     return (
       <div className="add_personal_task">
-        <h1>個人タスクの追加</h1>
+        <h1>グループタスクの追加</h1>
         <Box
           component="form"
           sx={{
@@ -28,7 +35,16 @@ export function AddPersonalTask(props) {
             <TextField
               required
               id="outlined-required"
+              label="対象グループ"
+              onChange={(e)=>{setGroupName(e.target.value)}}
+            />
+          </div>
+          <div>
+            <TextField
+              required
+              id="outlined-required"
               label="タスク名"
+              onChange={(e)=>{setTaskName(e.target.value)}}
             />
           </div>
 
@@ -37,6 +53,7 @@ export function AddPersonalTask(props) {
               required
               id="outlined-required"
               label="詳細"
+              onChange={(e)=>{setDetail(e.target.value)}}
             />
           </div>
           <div className='shimekiri'>
@@ -51,7 +68,8 @@ export function AddPersonalTask(props) {
             <TextField
               required
               id="outlined-required"
-              label="日付"
+              label="日付(MM/DD)"
+              onChange={(e)=>{setDateStr(e.target.value)}}
             />
           </div>
 
@@ -59,27 +77,28 @@ export function AddPersonalTask(props) {
             <TextField
               required
               id="outlined-required"
-              label="日時"
+              label="日時(HH:MM)"
+              onChange={(e)=>{setTimeStr(e.target.value)}}
             />
           </div>
         </Box>
 
         <div className="submit">
+
+        
+
           <Stack direction="row" spacing={2}>
-            <a href='/' onClick={(e) => {
-              e.preventDefault();
+            <Button variant="outlined" startIcon={<DeleteIcon />} onClick={()=>{
               props.ValueChange(0);
-            }}>{<Button variant="outlined" startIcon={<DeleteIcon />}>
+            }}>
               キャンセル
-            </Button>}</a>
-
-            <a href='/' onClick={(e) => {
-              e.preventDefault();
+            </Button>
+            <Button variant="contained" endIcon={<SendIcon />} onClick={()=>{
+              console
               props.ValueChange(0);
-            }}>{<Button variant="contained" endIcon={<SendIcon />}>
+            }} >
               決定
-            </Button>}</a>
-
+            </Button>
           </Stack>
         </div>
 

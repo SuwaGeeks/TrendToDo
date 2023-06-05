@@ -1,67 +1,21 @@
+import axios from "axios";
+
+const baseURL = process.env.REACT_APP_API_ENDPOINT;
+const port = process.env.REACT_APP_API_PORT;
+const origin = baseURL + ':' + port + '/api';
+
 // ユーザの参加しているグループ一覧を取得
 export function getJoinedGroups(userID) {
 	const req = userID;
-
-	const res = {
-		"groups": [
-			{
-				"groupId": 0,
-				"groupName": "string",
-				"groupUsers": [
-					{
-						"userId": 0,
-						"userName": "string"
-					}
-				],
-				"groupTasks": [
-					{
-						"taskId": 0,
-						"taskGroupId": "string",
-						"taskName": "string",
-						"taskContent": "string",
-						"taskLimit": "string",
-						"taskWeight": 0,
-						"meanTime": 0,
-						"finished": true
-					}
-				]
-			}
-		]
-	}
-	return res;
+	return axios.post(`${origin}/user`, req);
 }
 
 // 新しいグループに参加する
-export function joinGroup(groupID) {
+export function joinGroup(userID, groupName) {
 	const req = {
-		"groupId": groupID
+		"groupName": groupName
 	};
-
-	const res = {
-		"group": {
-			"groupId": 0,
-			"groupName": "string",
-			"groupUsers": [
-				{
-					"userId": 0,
-					"userName": "string"
-				}
-			],
-			"groupTasks": [
-				{
-					"taskId": 0,
-					"taskGroupId": "string",
-					"taskName": "string",
-					"taskContent": "string",
-					"taskLimit": "string",
-					"taskWeight": 0,
-					"meanTime": 0,
-					"finished": true
-				}
-			]
-		}
-	}
-	return res;
+	return axios.post(`${origin}/user/${userID}/group`, req);
 }
 
 // ユーザIDで指定してたユーザが所属しているグループの全てのタスクを取得
@@ -91,31 +45,7 @@ export function createGroup(groupName) {
 	const req = {
 		"groupName": groupName
 	};
-	const res = {
-		"createdGroup": {
-			"groupId": 0,
-			"groupName": "string",
-			"groupUsers": [
-				{
-					"userId": 0,
-					"userName": "string"
-				}
-			],
-			"groupTasks": [
-				{
-					"taskId": 0,
-					"taskGroupId": "string",
-					"taskName": "string",
-					"taskContent": "string",
-					"taskLimit": "string",
-					"taskWeight": 0,
-					"meanTime": 0,
-					"finished": true
-				}
-			]
-		}
-	};
-	return res;
+	return axios.post(`${origin}/group`, req);
 }
 
 // グループの情報を取得
