@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const baseURL = process.env.REACT_APP_API_ENDPOINT;
-const port = process.env.REACT_APP_API_PORT;
+const baseURL = import.meta.env.REACT_APP_API_ENDPOINT;
+const port = import.meta.env.REACT_APP_API_PORT;
 const origin = baseURL + ':' + port + '/api';
 
 export function test() {
