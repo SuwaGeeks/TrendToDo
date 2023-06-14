@@ -1,0 +1,178 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root{
+  position: relative;
+}
+
+.div-inline{
+  display: inline-block; _display: inline;
+}
+
+
+/* ヘッダ */
+.header{
+  height: 70px;
+  background-color: #735EAB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.header > h1 {
+  color: white;
+  font-size: 2.2rem;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.header > .setting {
+  margin-left: auto;
+}
+
+
+/* ログインページ */
+.login{
+  margin-top: 200px;
+}
+
+.login > div{
+  margin-top: 50px;
+}
+
+/* ナビゲーション */
+.Navi{
+  width: 100%;
+  position: fixed;
+  bottom: 0; /*下に固定*/
+}
+
+/* パーソナルタスク */
+.submit{
+  display: inline-block;
+}
+
+.shimekiri{
+  display: inline-block;
+}
+
+.Picon{
+  text-align: left;
+  float: left;
+  clear: left;
+}
+
+.Ptask{
+  text-align: left;
+}
+
+.Pcom{
+  clear: right;
+}
+.Padd{
+  float: right;
+}
+
+/* タスク詳細 */
+
+
+.Dback{
+  text-align: left;
+  float: left;
+  clear: left;
+}
+
+.Dtitle{
+  text-align: left;
+  clear: right;
+  font-size: larger;
+}
+.Ddetail{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+.DDD{
+  text-align: center;
+  margin-top: 20px;
+}
+
+.Dline{
+  background-color: gray;
+  height: 3px;
+}
+
+.Dbutton{
+  margin-top: 20px;
+}
+
+/* 完了画面 */
+.Rtime{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.RAll{
+  margin: 0 auto;
+}
+
+a{
+  text-decoration: none;
+  color:black;
+}
+
+/* タスクリスト */
+
+.TaskList{
+  background-color: #ECE6F0;
+  border-radius: 18px;
+  padding: 40px;
+  margin: 20px;
+}
+
+.TaskList > table{
+  margin-left: 10px ;
+  padding-bottom: 150px;
+}
+
+.element{
+  color: #1d1c20;
+}
+
+.elem-icon{
+  margin: 8px;
+}
+
+.wrapper{
+  display: flex;
+  margin-bottom: 20px;
+  margin-left: 20px ;
+  border-bottom: gray solid 1px;
+}
+
+.elem-title, .elem-detail{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: left;
+}
+
+.elem-status{
+  display: flex;
+  flex-direction: row;
+}
