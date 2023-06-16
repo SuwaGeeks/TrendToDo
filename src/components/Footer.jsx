@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BottomNavigation, BottomNavigationAction, Paper, Box, Container, Stack } from '@mui/material';
-import { Person, Group, Home, AlignHorizontalCenter } from '@mui/icons-material';
+import { Person, Group, Home } from '@mui/icons-material';
 
 export  function Footer() {
   const location = useLocation();
