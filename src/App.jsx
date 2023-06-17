@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Router } from './router/Router';
 import { MainLayout } from './components/layout/MainLayout';
-import { TheHeader } from './components/TheHeader';
+import { Header } from './components/Header';
 import './App.css';
 
 export default function App() {
   return (
     <div className='App'>
       <MainLayout>
-        <TheHeader/>
+        <Header />
         <Router />
       </MainLayout>
     </div>
