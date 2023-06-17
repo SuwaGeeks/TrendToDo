@@ -11,15 +11,14 @@ export function LoginPage(props){
   if(hasAccount){
     // サインインページ
     return (
-      <MainLayout>
-        <Header/>
+      <>
         <h1>ログイン</h1>
         <SignIn setLoginState={props.setLoginState} setUserID={props.setUserID}  />
         <a href='/' onClick={(e)=>{
           e.preventDefault();
           setValue(false);
         }}>アカウントをお持ちではありませんか？</a>
-      </MainLayout>
+      </>
     )
   }else{
     // サインアップページ
