@@ -10,7 +10,7 @@ export const PersonalTaskListPage = () => {
       <Stack spacing={2} sx={{ px: "20px", py: "40px" }}>
         <Stack
           direction="row"
-          spacing={3}
+          spacing={2}
           alignItems="center"
         >
           <Task />
