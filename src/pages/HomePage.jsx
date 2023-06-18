@@ -5,7 +5,12 @@ import { Footer } from '../components/Footer';
 import { PersonalTaskList } from '../components/PersonalTaskList';
 import { GroupTaskList } from '../components/GroupTaskList';
 
+import { LoginStateAtom } from '../models/LoginStateAtom';
+import { useRecoilState } from 'recoil';
+
 export function HomePage(props) {
+  const [loginState, _] = useRecoilState(LoginStateAtom)
+
   const groupList = [
     {className: "授業A"}, {className: "授業B"}
   ];
