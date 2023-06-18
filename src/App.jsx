@@ -3,14 +3,18 @@ import { Router } from './router/Router';
 import { MainLayout } from './components/layout/MainLayout';
 import { Header } from './components/Header';
 import './App.css';
+import { RecoilRoot } from 'recoil';
 
 export default function App() {
+
   return (
     <div className='App'>
-      <MainLayout>
-        <Header />
-        <Router />
-      </MainLayout>
+      <RecoilRoot>
+        <MainLayout>
+          <Header />
+          <Router />
+        </MainLayout>
+      </RecoilRoot>
     </div>
   );
 }
