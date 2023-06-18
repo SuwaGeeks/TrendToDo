@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TheHeader } from '../components/TheHeader';
+import { Header } from '../components/Header';
 import { MainLayout } from '../components/layout/MainLayout';
 import { SignIn } from '../components/Login/SignIn';
 import { SignUp } from '../components/Login/SignUp';
@@ -11,15 +11,14 @@ export function LoginPage(props){
   if(hasAccount){
     // サインインページ
     return (
-      <MainLayout>
-        <TheHeader/>
+      <>
         <h1>ログイン</h1>
         <SignIn setLoginState={props.setLoginState} setUserID={props.setUserID}  />
         <a href='/' onClick={(e)=>{
           e.preventDefault();
           setValue(false);
         }}>アカウントをお持ちではありませんか？</a>
-      </MainLayout>
+      </>
     )
   }else{
     // サインアップページ

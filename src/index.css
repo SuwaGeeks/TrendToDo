@@ -21,28 +21,6 @@ code {
 }
 
 
-/* ヘッダ */
-.header{
-  height: 70px;
-  background-color: #735EAB;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-}
-
-.header > h1 {
-  color: white;
-  font-size: 2.2rem;
-  text-align: center;
-  flex-grow: 1;
-}
-
-.header > .setting {
-  margin-left: auto;
-}
-
-
 /* ログインページ */
 .login{
   margin-top: 200px;
