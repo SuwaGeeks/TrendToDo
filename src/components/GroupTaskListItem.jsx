@@ -1,10 +1,12 @@
 import { Stack, Checkbox, Typography } from '@mui/material'
 import { CalendarMonth, SentimentSatisfiedAlt, AccessTime } from '@mui/icons-material';
+import {Link} from 'react-router-dom';
 
 export const GroupTaskListItem = (props) => {
   const data = props.data;
 
   return (
+    <Link to='/donetask'>
     <Stack>
       {/* タスク名 */}
       <Typography
@@ -50,5 +52,6 @@ export const GroupTaskListItem = (props) => {
         </Stack>
       </Stack>
     </Stack>
+    </Link>
   )
 }

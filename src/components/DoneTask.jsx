@@ -2,6 +2,7 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {Link} from 'react-router-dom';
 
 
 export function DoneTask(props) {
@@ -34,19 +35,14 @@ export function DoneTask(props) {
       <div className='Dline'></div>
       <div className='Dbutton'>
       <Stack direction="row" spacing={2}>
-        <a href='/' onClick={(e) => {
-          e.preventDefault();
-          props.ValueChange(3);
-        }}>
+      <Link to='/result'>
           <Button variant="contained" >
             タスク完了
-          </Button></a>
-        <a href='/' onClick={(e) => {
-          e.preventDefault();
-          props.ValueChange(0);
-        }}><Button variant="contained" >
+          </Button></Link>
+          <Link to='/personal_task'>
+          <Button variant="contained" >
             キャンセル
-          </Button></a>
+          </Button></Link>
       </Stack>
       </div>
       </div>

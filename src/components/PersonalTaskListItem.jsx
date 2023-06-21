@@ -1,6 +1,7 @@
 import { Stack, Checkbox, Typography } from '@mui/material'
 import { CalendarMonth } from '@mui/icons-material';
 import { useState } from 'react'
+import { Link} from 'react-router-dom';
 
 export const PersonalTaskListItem = (props) => {
   const [checkBoxFlag, setCheckBoxFlag] = useState(false);
@@ -11,6 +12,7 @@ export const PersonalTaskListItem = (props) => {
   };
 
   return (
+    <Link to='/donetask'>
     <Stack
       direction="row"
     >
@@ -43,5 +45,6 @@ export const PersonalTaskListItem = (props) => {
         }
       </Stack>
     </Stack>
+    </Link>
   )
 }

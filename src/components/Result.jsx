@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
+import {Link} from 'react-router-dom';
 
 
 export function Result(props) {
@@ -52,18 +53,14 @@ export function Result(props) {
       <div className='Dline'></div>
 
       <Stack direction="row" spacing={2}>
-        <a href='/' onClick={(e) => {
-          e.preventDefault();
-          props.ValueChange(0);
-        }}><Button variant="contained" >
+      <Link to='/'>
+        <Button variant="contained" >
             決定
-          </Button></a>
-        <a href='/' onClick={(e) => {
-          e.preventDefault();
-          props.ValueChange(2);
-        }}><Button variant="contained" >
+          </Button></Link>
+          <Link to='/donetask'>
+        <Button variant="contained" >
             戻る
-          </Button></a>
+          </Button></Link>
       </Stack>
     </div>
 
