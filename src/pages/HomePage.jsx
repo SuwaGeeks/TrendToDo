@@ -8,12 +8,12 @@ import { GroupTaskList } from '../components/GroupTaskList';
 import { LoginStateAtom } from '../models/LoginStateAtom';
 import { useRecoilState } from 'recoil';
 
-export function HomePage(props) {
-  const [loginState, _] = useRecoilState(LoginStateAtom)
+import { UserData } from "../utils/UserData";
 
-  const groupList = [
-    {className: "授業A"}, {className: "授業B"}
-  ];
+export function HomePage(props) {
+  const [loginState, _] = useRecoilState(LoginStateAtom);
+  const userData = new UserData('hogehoge');
+  const groupList = userData.getGropuList(userData);
 
   return (
     <>
@@ -33,8 +33,8 @@ export function HomePage(props) {
             <Task />
             <Typography variant='h5' children="個人タスク" />
           </Stack>
-          <Typography children="3つのタスクが残っています。" align='left' />
-          <PersonalTaskList />
+          <Typography children={userData.getNumOfPersonalTasks()+'つのタスクが残っています。'} align='left' />
+          <PersonalTaskList userData={userData} />
         </Stack>
 
         {/* グループタスク */}
@@ -47,12 +47,12 @@ export function HomePage(props) {
             <Task />
             <Typography variant='h5' children="グループタスク" />
           </Stack>
-          <Typography children="3つのタスクが残っています。" align='left' />
+          <Typography children={userData.getNumOfGroupTasks()+'つのタスクが残っています。'} align='left' />
           <Stack spacing={3}>
             {
               groupList.map((elm) => {
                 return (
-                  <GroupTaskList className={elm.className} key={elm.className} />
+                  <GroupTaskList userData={userData} className={elm.className} key={elm.className} />
                 )
               })
             }

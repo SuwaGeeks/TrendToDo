@@ -4,13 +4,8 @@ import { GroupTaskListItem } from './GroupTaskListItem';
 import { GroupTaskListItemAddTask } from './GroupTaskListItemAddItem';
 
 export const GroupTaskList = (props) => {
-  const sampleData = [
-    {title: "タスク１", limit: "yyyy/mm/dd", eva: 1.25, meanTime: "dd日hh時間mm分"},
-    {title: "タスク２", limit: "yyyy/mm/dd", eva: 1.25, meanTime: "dd日hh時間mm分"},
-    {title: "タスク１タスク１タスク１タスク１タスク１タスク１タスク１", limit: "yyyy/mm/dd", eva: 1.25, meanTime: "dd日hh時間mm分"},
-    {title: "タスク４", limit: null, eva: 1.25, meanTime: "dd日hh時間mm分"},
-    {title: "タスク５", limit: "yyyy/mm/dd", eva: 1.25, meanTime: "dd日hh時間mm分"},
-  ]
+
+  const sampleData = props.userData.getGropuTasksFromName(props.className);
 
   const ListData = sampleData.map((elm, index) => {
     return (

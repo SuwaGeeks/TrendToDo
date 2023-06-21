@@ -4,10 +4,12 @@ import { Task } from '@mui/icons-material';
 import { Footer } from '../components/Footer';
 import { GroupTaskList } from '../components/GroupTaskList';
 
+import { UserData } from "../utils/UserData";
+
 export const GroupTaskListPage = () => {
-  const groupList = [
-    {className: "授業A"}, {className: "授業B"}
-  ];
+
+  const userData = new UserData('hogehoge');
+  const groupList = userData.getGropuList(userData);
 
   return (
     <>
@@ -25,12 +27,12 @@ export const GroupTaskListPage = () => {
             <Task />
             <Typography variant='h5' children="グループタスク" />
           </Stack>
-          <Typography children="3つのタスクが残っています。" align='left' />
+          <Typography children={userData.getNumOfGroupTasks()+'つのタスクが残っています。'} align='left' />
           <Stack spacing={3}>
             {
               groupList.map((elm) => {
                 return (
-                  <GroupTaskList className={elm.className} key={elm.className} />
+                  <GroupTaskList userData={userData} className={elm.className} key={elm.className} />
                 )
               })
             }
