@@ -8,6 +8,7 @@ import Stack from '@mui/material/Stack';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import { Link} from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 //const label = { inputProps: { 'aria-label': 'Switch demo' } };
@@ -87,18 +88,17 @@ export function AddGroupTask(props) {
 
         
 
-          <Stack direction="row" spacing={2}>
-            <Button variant="outlined" startIcon={<DeleteIcon />} onClick={()=>{
-              props.ValueChange(0);
-            }}>
+        <Stack direction="row" spacing={2}>
+          <Link to='/group_task'>{<Button variant="outlined" startIcon={<DeleteIcon />}>
               キャンセル
-            </Button>
-            <Button variant="contained" endIcon={<SendIcon />} onClick={()=>{
-              console
-              props.ValueChange(0);
-            }} >
+            </Button>}
+            </Link>
+
+            <Link to='/group_task'>{<Button variant="contained" endIcon={<SendIcon />}>
               決定
-            </Button>
+            </Button>}
+            </Link>
+
           </Stack>
         </div>
 

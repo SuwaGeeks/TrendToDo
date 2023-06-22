@@ -10,7 +10,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Link, useLocation } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 import { AppStateAtom } from '../models/AppStateAtom';
 import { useRecoilState } from 'recoil';
@@ -85,12 +85,12 @@ export function AddPersonalTask(props) {
 
         <div className="submit">
           <Stack direction="row" spacing={2}>
-          <Link to='/'>{<Button variant="outlined" startIcon={<DeleteIcon />}>
+          <Link to='/personal_task'>{<Button variant="outlined" startIcon={<DeleteIcon />}>
               キャンセル
             </Button>}
             </Link>
 
-            <Link to='/' onClick={(e) => {
+            <Link to='/personal_task' onClick={(e) => {
               // 新しい個人タスクの追加
               axios.post('/addUserTask', {
                 taskName: taskName,
