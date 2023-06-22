@@ -4,6 +4,7 @@ import { Task } from '@mui/icons-material';
 import { Footer } from '../components/Footer';
 import { PersonalTaskList } from '../components/PersonalTaskList';
 import { GroupTaskList } from '../components/GroupTaskList';
+import { AddGroup } from '../components/addGroup';
 
 import { LoginStateAtom } from '../models/LoginStateAtom';
 import { useRecoilState } from 'recoil';
@@ -59,7 +60,7 @@ export function HomePage(props) {
           </Stack>
         </Stack>
       </Stack>
-      
+      <AddGroup/>
       <Footer />
     </>
   );

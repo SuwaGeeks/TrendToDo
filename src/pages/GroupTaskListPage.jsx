@@ -3,6 +3,7 @@ import { Task } from '@mui/icons-material';
 
 import { Footer } from '../components/Footer';
 import { GroupTaskList } from '../components/GroupTaskList';
+import { AddGroup } from '../components/addGroup';
 
 export const GroupTaskListPage = () => {
   const groupList = [
@@ -37,6 +38,7 @@ export const GroupTaskListPage = () => {
           </Stack>
         </Stack>
       </Stack>
+      <AddGroup/>
       <Footer />
     </>
   )
