@@ -12,13 +12,14 @@ async function getAppData(userID) {
 export class UserData {
 
     // APIサーバからのデータでインスタンス化
-    constructor(appData) {
+    constructor(appData, userID) {
+        this.userID = userID;
         this.userData = appData;
     }
 
     // データの取得を同期的に行うために静的メソッドでインスタンス化
     static init = async (userID) => {
-        return new UserData(await getAppData(userID));
+        return new UserData(await getAppData(userID), userID);
     }
 
     // グループリストを取得
@@ -88,5 +89,11 @@ export class UserData {
         return personalTasks;
     }
 
+    // 新しい個人タスクを追加する
+    addPersonalTaskIntoUserData(newTask){
+        // TODO:TypeErrorの解消
+        const userTasks = this.userData.userTasks;
+        userTasks.push(newTask);
+    }
 
 }
