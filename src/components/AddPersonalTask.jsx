@@ -9,6 +9,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link, useLocation } from 'react-router-dom';
 
 //const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
@@ -66,19 +67,15 @@ export function AddPersonalTask(props) {
 
         <div className="submit">
           <Stack direction="row" spacing={2}>
-            <a href='/' onClick={(e) => {
-              e.preventDefault();
-              props.ValueChange(0);
-            }}>{<Button variant="outlined" startIcon={<DeleteIcon />}>
+          <Link to='/'>{<Button variant="outlined" startIcon={<DeleteIcon />}>
               キャンセル
-            </Button>}</a>
+            </Button>}
+            </Link>
 
-            <a href='/' onClick={(e) => {
-              e.preventDefault();
-              props.ValueChange(0);
-            }}>{<Button variant="contained" endIcon={<SendIcon />}>
+            <Link to='/'>{<Button variant="contained" endIcon={<SendIcon />}>
               決定
-            </Button>}</a>
+            </Button>}
+            </Link>
 
           </Stack>
         </div>
