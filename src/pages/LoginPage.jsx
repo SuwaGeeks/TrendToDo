@@ -10,11 +10,15 @@ import { getAuth, getRedirectResult, GithubAuthProvider, signInWithRedirect } fr
 import "../FirebaseConfig"
 
 import { LoginStateAtom } from "../models/LoginStateAtom";
+import { AppStateAtom } from "../models/AppStateAtom";
 import { useRecoilState } from "recoil"; 
+
+import { UserData } from "../utils/UserData";
 
 export function LoginPage(props){
   const [isLoading, setIsLoading] = useState(true);
-  const [loginState, setLoginState] = useRecoilState(LoginStateAtom)
+  const [loginState, setLoginState] = useRecoilState(LoginStateAtom);
+  const [AppState, setAppState] = useRecoilState(AppStateAtom);
 
   const provider = new GithubAuthProvider();
   const auth = new getAuth();
@@ -25,13 +29,14 @@ export function LoginPage(props){
 
   useEffect(() => {
     getRedirectResult(auth)
-      .then((result) => {
+      .then(async (result) => {
         if(result !== null) {
           const credential = GithubAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
 
           const user = result.user;
 
+          setAppState({userData: await UserData.init(user.uid)})
           setLoginState({userId: user.uid});
           console.log(user.uid)
         }
