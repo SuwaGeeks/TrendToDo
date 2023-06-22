@@ -1,26 +1,31 @@
 import axios from "axios";
-import { getAppData } from "../utils/Responses";
-import { forEach } from "recoil/cjs";
+
+async function getAppData(userID) {
+    try {
+      const response = await axios.post('/getAppData', { userId: userID });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 export class UserData {
-    
+
     // APIサーバからのデータでインスタンス化
-    constructor(userID) {
-        // :TODO APIからデータを取得
-        // axios.post('/api/getAppData', 
-        //   {userId: userID}).then(res => {
-        //    this.userData = res.data;
-        // }).catch(err => {
-        //     console.log(err);
-        // })
-        this.userData = getAppData;
+    constructor(appData) {
+        this.userData = appData;
+    }
+
+    // データの取得を同期的に行うために静的メソッドでインスタンス化
+    static init = async (userID) => {
+        return new UserData(await getAppData(userID));
     }
 
     // グループリストを取得
     // e.g. -> [{className: "授業A"}, {className: "授業B"}]
     getGropuList() {
         var groupList = [];
-        this.userData['userGroups'].forEach(elem => {
+        this.userData.userGroups.forEach(elem => {
             groupList.push({
                 className: elem.groupInfo.groupName
             })
@@ -30,13 +35,13 @@ export class UserData {
 
     // 残っている個人タスクの数を取得
     // e.g. -> 2
-    getNumOfPersonalTasks(){
+    getNumOfPersonalTasks() {
         return this.userData.userTasks.length;
     }
 
     // 残っているグループタスクの数を取得
     // e.g. -> 4
-    getNumOfGroupTasks(){
+    getNumOfGroupTasks() {
         // 個人タスク
         var ret = 0;
         this.userData.userGroups.forEach(group => {
@@ -53,33 +58,33 @@ export class UserData {
     getGropuTasksFromName(groupName) {
         const groups = this.userData.userGroups;
         const group = groups.find(group => group.groupInfo.groupName === groupName);
-        
+
         if (group) {
-          const groupTasks = group.groupTask.map(elem => ({
-            title: elem.taskName,
-            limit: elem.taskLimit,
-            eva: elem.taskWeight,
-            meanTime: elem.meanTime
-          }));
-          
-          return groupTasks;
+            const groupTasks = group.groupTask.map(elem => ({
+                title: elem.taskName,
+                limit: elem.taskLimit,
+                eva: elem.taskWeight,
+                meanTime: elem.meanTime
+            }));
+
+            return groupTasks;
         }
-        
+
         return [];
-      }
+    }
 
     // 個人のタスク一覧を取得
     // e.g. -> [
     // {title: "タスク１", limit: "yyyy/mm/dd"},
     // {title: "タスク２", limit: "yyyy/mm/dd"},
     // ]
-    getPersonalTasks(){
+    getPersonalTasks() {
         const userTasks = this.userData.userTasks
         const personalTasks = userTasks.map(elem => ({
             title: elem.taskName,
             limit: elem.taskLimit
-          }));
-          
+        }));
+
         return personalTasks;
     }
 

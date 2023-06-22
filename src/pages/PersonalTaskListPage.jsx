@@ -4,12 +4,12 @@ import { Task } from "@mui/icons-material"
 import { PersonalTaskList } from "../components/PersonalTaskList"
 import { Footer } from "../components/Footer"
 
-import { UserData } from "../utils/UserData";
+import { AppStateAtom } from '../models/AppStateAtom';
+import { useRecoilState } from 'recoil';
 
 export const PersonalTaskListPage = () => {
 
-  const userData = new UserData('hogehoge');
-  const groupList = userData.getGropuList(userData);
+  const [AppState, _] = useRecoilState(AppStateAtom);
 
   return (
     <>
@@ -22,8 +22,8 @@ export const PersonalTaskListPage = () => {
           <Task />
           <Typography variant='h5' children="個人タスク" />
         </Stack>
-        <Typography children={userData.getNumOfPersonalTasks()+'つのタスクが残っています。'} align='left' />
-        <PersonalTaskList userData={userData} />
+        <Typography children={AppState.userData.getNumOfPersonalTasks()+'つのタスクが残っています。'} align='left' />
+        <PersonalTaskList userData={AppState.userData} />
       </Stack>
       <Footer />
     </>

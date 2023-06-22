@@ -4,12 +4,13 @@ import { Task } from '@mui/icons-material';
 import { Footer } from '../components/Footer';
 import { GroupTaskList } from '../components/GroupTaskList';
 
-import { UserData } from "../utils/UserData";
+import { AppStateAtom } from '../models/AppStateAtom';
+import { useRecoilState } from 'recoil';
 
 export const GroupTaskListPage = () => {
 
-  const userData = new UserData('hogehoge');
-  const groupList = userData.getGropuList(userData);
+  const [AppState, _] = useRecoilState(AppStateAtom);
+  const groupList = AppState.userData.getGropuList();
 
   return (
     <>
@@ -27,12 +28,12 @@ export const GroupTaskListPage = () => {
             <Task />
             <Typography variant='h5' children="グループタスク" />
           </Stack>
-          <Typography children={userData.getNumOfGroupTasks()+'つのタスクが残っています。'} align='left' />
+          <Typography children={AppState.userData.getNumOfGroupTasks()+'つのタスクが残っています。'} align='left' />
           <Stack spacing={3}>
             {
               groupList.map((elm) => {
                 return (
-                  <GroupTaskList userData={userData} className={elm.className} key={elm.className} />
+                  <GroupTaskList userData={AppState.userData} className={elm.className} key={elm.className} />
                 )
               })
             }

@@ -5,15 +5,13 @@ import { Footer } from '../components/Footer';
 import { PersonalTaskList } from '../components/PersonalTaskList';
 import { GroupTaskList } from '../components/GroupTaskList';
 
-import { LoginStateAtom } from '../models/LoginStateAtom';
+import { AppStateAtom } from '../models/AppStateAtom';
 import { useRecoilState } from 'recoil';
 
-import { UserData } from "../utils/UserData";
-
 export function HomePage(props) {
-  const [loginState, _] = useRecoilState(LoginStateAtom);
-  const userData = new UserData('hogehoge');
-  const groupList = userData.getGropuList(userData);
+
+  const [AppState, _] = useRecoilState(AppStateAtom);
+  const groupList = AppState.userData.getGropuList();
 
   return (
     <>
@@ -22,7 +20,7 @@ export function HomePage(props) {
         spacing={5}
         sx={{ px: "20px", py: "40px" }}
       >
-
+        
         {/* 個人タスク */}
         <Stack spacing={2}>
           <Stack
@@ -33,8 +31,8 @@ export function HomePage(props) {
             <Task />
             <Typography variant='h5' children="個人タスク" />
           </Stack>
-          <Typography children={userData.getNumOfPersonalTasks()+'つのタスクが残っています。'} align='left' />
-          <PersonalTaskList userData={userData} />
+          <Typography children={AppState.userData.getNumOfPersonalTasks()+'つのタスクが残っています。'} align='left' />
+          <PersonalTaskList userData={AppState.userData} />
         </Stack>
 
         {/* グループタスク */}
@@ -47,12 +45,12 @@ export function HomePage(props) {
             <Task />
             <Typography variant='h5' children="グループタスク" />
           </Stack>
-          <Typography children={userData.getNumOfGroupTasks()+'つのタスクが残っています。'} align='left' />
+          <Typography children={AppState.userData.getNumOfGroupTasks()+'つのタスクが残っています。'} align='left' />
           <Stack spacing={3}>
             {
               groupList.map((elm) => {
                 return (
-                  <GroupTaskList userData={userData} className={elm.className} key={elm.className} />
+                  <GroupTaskList userData={AppState.userData} className={elm.className} key={elm.className} />
                 )
               })
             }
