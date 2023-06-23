@@ -2,11 +2,17 @@ import { Stack, Checkbox, Typography } from '@mui/material'
 import { CalendarMonth, SentimentSatisfiedAlt, AccessTime } from '@mui/icons-material';
 import {Link} from 'react-router-dom';
 
+import { AppStateAtom } from '../models/AppStateAtom';
+import { useRecoilState } from 'recoil';
+
 export const GroupTaskListItem = (props) => {
   const data = props.data;
+  const [AppState, setAppState] = useRecoilState(AppStateAtom);
 
   return (
-    <Link to='/donetask'>
+    <Link to='/donetask' onClick={(e) => {
+      setAppState({selectedGroupTaskId: data.id, userData:AppState.userData});
+    }}>
     <Stack>
       {/* タスク名 */}
       <Typography

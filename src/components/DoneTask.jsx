@@ -4,8 +4,15 @@ import Button from '@mui/material/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {Link} from 'react-router-dom';
 
+import { AppStateAtom } from '../models/AppStateAtom';
+import { useRecoilState } from 'recoil';
+
 
 export function DoneTask(props) {
+
+  const [AppState, setAppState] = useRecoilState(AppStateAtom);
+  const task = AppState.userData.getGropuTaskFromId(AppState.selectedGroupTaskId);
+
   return (
     <div className='Dmenu'>
       <div className='Dback'>
@@ -18,17 +25,17 @@ export function DoneTask(props) {
             </Stack>
           </Stack>
       </div>
-      <div className='Dtitle'>aaa論</div>
+      <div className='Dtitle'>{task.taskName}</div>
       <div className='Ddetail'>
       <div className='DDD'>
         <div>
           <h3>内容</h3>
-          <div className='D'>xxxについて100字以内</div>
+          <div className='D'>{task.taskContent}</div>
         </div>
 
         <div>
           <h3>期限</h3>
-          <div>YYYYY/MM/DD HH:WW</div>
+          <div>{task.taskLimit}</div>
         </div>
         </div>
 
@@ -36,13 +43,15 @@ export function DoneTask(props) {
       <div className='Dbutton'>
       <Stack direction="row" spacing={2}>
       <Link to='/result'>
-          <Button variant="contained" >
-            タスク完了
-          </Button></Link>
-          <Link to='/personal_task'>
-          <Button variant="contained" >
-            キャンセル
-          </Button></Link>
+        <Button variant="contained" >
+          タスク完了
+        </Button>
+      </Link>
+      <Link to='/personal_task'>
+        <Button variant="contained" >
+          キャンセル
+        </Button>
+      </Link>
       </Stack>
       </div>
       </div>

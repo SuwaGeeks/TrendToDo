@@ -7,6 +7,8 @@ export const GroupTaskList = (props) => {
 
   const sampleData = props.userData.getGropuTasksFromName(props.className);
 
+  // console.log(sampleData);
+
   const ListData = sampleData.map((elm, index) => {
     return (
       <GroupTaskListItem

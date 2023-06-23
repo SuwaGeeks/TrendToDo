@@ -6,8 +6,20 @@ import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
 import {Link} from 'react-router-dom';
 
+import axios from 'axios';
+
+import { useState } from 'react'
+
+import { AppStateAtom } from '../models/AppStateAtom';
+import { useRecoilState } from 'recoil';
 
 export function Result(props) {
+
+  const [AppState, setAppState] = useRecoilState(AppStateAtom);
+  const [taskTime, setTaskTime] = useState(0);
+  const [taskWeight, setTaskWeight] = useState(0);
+  
+
   return (
     <div className='RAll'>
       <div className='Rtime'>
@@ -23,8 +35,9 @@ export function Result(props) {
           <div className='Rtime'>
             <TextField
               id="outlined-number"
-              label="所要時間"
+              label="所要時間(分)"
               type="number"
+              onChange={(e)=>{setTaskTime(e.target.value)}}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -45,6 +58,7 @@ export function Result(props) {
             marks
             min={1}
             max={5}
+            onChange={(e)=>{setTaskWeight(e.target.value)}}
           />
         </Box>
         </div>
@@ -53,7 +67,19 @@ export function Result(props) {
       <div className='Dline'></div>
 
       <Stack direction="row" spacing={2}>
-      <Link to='/'>
+      <Link to='/' onClick={(e) => {
+        axios.post('/submitGroupTask', {
+          userId: AppState.userData.userID,
+          groupId: AppState.userData.getGropuIdFromGTaskId(AppState.selectedGroupTaskId),
+          taskId: AppState.selectedGroupTaskId,
+          evaluation: taskWeight,
+          time: taskTime
+        }).then(res => {
+
+        }).catch(err => {
+          console.log(err);
+        })
+      }}>
         <Button variant="contained" >
             決定
           </Button></Link>
