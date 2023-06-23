@@ -109,13 +109,6 @@ export class UserData {
         return personalTasks;
     }
 
-    // 新しい個人タスクを追加する
-    addPersonalTaskIntoUserData(newTask){
-        // TODO:TypeErrorの解消
-        const userTasks = this.userData.userTasks;
-        userTasks.push(newTask);
-    }
-
     // グループタスクをfinishedにする
     finishGroupTask(taskId, groupId){
         for (let i = 0; i < this.userData.userGroups.length; i++) {
