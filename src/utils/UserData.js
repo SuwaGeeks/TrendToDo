@@ -91,7 +91,6 @@ export class UserData {
                 }
             })
         });
-
         return ret;
     }
 
@@ -115,17 +114,6 @@ export class UserData {
         // TODO:TypeErrorの解消
         const userTasks = this.userData.userTasks;
         userTasks.push(newTask);
-    }
-
-    // 新しいグループタスクを追加する
-    addGroupTaskIntoUserData(newTask, groupID){
-        // TODO:TypeErrorの解消
-        userTasks.push(newTask);
-        for (let i = 0; i < this.userData.userGroups.length; i++) {
-            if(this.userData.userGroups[i].groupInfo.groupId == groupID){
-                this.userData.userGroups[i].groupTask.push(newTask);
-            }
-        }
     }
 
     // グループタスクをfinishedにする

@@ -11,6 +11,10 @@ import Switch from '@mui/material/Switch';
 import { Link} from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+import { UserData } from "../utils/UserData";
+
+import { Loading } from "../components/Loading";
+
 import InputLabel from '@mui/material/InputLabel';
 import { AppStateAtom } from '../models/AppStateAtom';
 import { useRecoilState } from 'recoil';
@@ -19,11 +23,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
+import axios from 'axios';
+
 //const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 export function AddGroupTask(props) {
 
-  const [AppState, _] = useRecoilState(AppStateAtom);
+  const [AppState, setAppState] = useRecoilState(AppStateAtom);
   const groupList = AppState.userData.getGropuList();
 
   const [groupId, setGroupId] = useState('');
@@ -32,6 +38,8 @@ export function AddGroupTask(props) {
   const [dateStr, setDateStr] = useState('');
   const [timeStr, setTimeStr] = useState('');
 
+  const [isPressed, setIsPressed] = useState(false);
+  
     return (
       <div className="add_personal_task">
         <h1>グループタスクの追加</h1>
@@ -50,9 +58,9 @@ export function AddGroupTask(props) {
               label="対象グループ"
               onChange={(e)=>{setGroupName(e.target.value)}}
             /> */}
-            <FormControl onChange={(e)=>{setGroupId(e.target.value)}}>
+            <FormControl>
             <InputLabel id="select-label">グループを選択してください</InputLabel>
-            <Select defaultValue = "">
+            <Select onChange={(e)=>{setGroupId(e.target.value)}} defaultValue = "">
               {
                 groupList.map((elem) => {
                   return (
@@ -110,41 +118,50 @@ export function AddGroupTask(props) {
         <div className="submit">
 
         <Stack direction="row" spacing={2}>
-          <Link to='/group_task'>{<Button variant="outlined" startIcon={<DeleteIcon />}>
+          <Link to='/'>{<Button variant="outlined" startIcon={<DeleteIcon />}>
             キャンセル
           </Button>}
           </Link>
 
-          <Link to='/personal_task' onClick={(e) => {
+          <Link to='/' onClick={async (e) => {
 
-            console.log({
-              groupId: groupId,
-              taskName: taskName,
-              taskContent: detail,
-              taskLimit: `${dateStr} ${timeStr}`,
-              addUserId: AppState.userData.userID
-            });
+            if(isPressed){
+              e.preventDefault();
+            }else{
+              setIsPressed(true);
 
-              // 新しいグループタスクの追加
-              axios.post('/addGroupTask', {
+              console.log({
                 groupId: groupId,
                 taskName: taskName,
                 taskContent: detail,
                 taskLimit: `${dateStr} ${timeStr}`,
                 addUserId: AppState.userData.userID
-              }).then(res => {
+              });
+
+              // 新しいグループタスクの追加
+             await axios.post('/addGroupTask', {
+                groupId: groupId,
+                taskName: taskName,
+                taskContent: detail,
+                taskLimit: `${dateStr} ${timeStr}`,
+                addUserId: AppState.userData.userID
+              }).then(async res => {
                 const newTask = res.data;
                 const userID = AppState.userData.userID;
-                console.log(newTask);
-                AppState.userData.addGroupTaskIntoUserData(newTask, userID);
+                setAppState({userData: await UserData.init(userID)});
+
               }).catch((err) => {
                 console.log(err);
               });
+            }
             }}>{<Button variant="contained" endIcon={<SendIcon />}>
               決定
             </Button>}
             </Link>
           </Stack>
+          {
+            isPressed && Loading()
+          }
         </div>
 
       </div>
