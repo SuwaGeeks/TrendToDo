@@ -23,12 +23,13 @@ export class UserData {
     }
 
     // グループリストを取得
-    // e.g. -> [{className: "授業A"}, {className: "授業B"}]
+    // e.g. -> [{className: "授業A", groupID:123}, {className: "授業B", groupID:456}]
     getGropuList() {
         var groupList = [];
         this.userData.userGroups.forEach(elem => {
             groupList.push({
-                className: elem.groupInfo.groupName
+                className: elem.groupInfo.groupName,
+                groupID: elem.groupInfo.groupId
             })
         });
         return groupList;
@@ -65,13 +66,31 @@ export class UserData {
                 title: elem.taskName,
                 limit: elem.taskLimit,
                 eva: elem.taskWeight,
-                meanTime: elem.meanTime
+                meanTime: elem.meanTime,
+                id: elem.taskId
             }));
 
             return groupTasks;
         }
 
         return [];
+    }
+
+    // グループタスクのIDからグループタスクの情報を取得
+    getGropuTaskFromId(groupTaskId) {
+        const groups = this.userData.userGroups;
+        var ret = {};
+
+        groups.forEach(group => {
+            const tasks = group.groupTask;
+            tasks.forEach(task => {
+                if(task.taskId == groupTaskId){
+                    ret = task;
+                }
+            })
+        });
+
+        return ret;
     }
 
     // 個人のタスク一覧を取得
@@ -94,6 +113,29 @@ export class UserData {
         // TODO:TypeErrorの解消
         const userTasks = this.userData.userTasks;
         userTasks.push(newTask);
+    }
+
+    // 新しいグループタスクを追加する
+    addGroupTaskIntoUserData(newTask, groupID){
+        // TODO:TypeErrorの解消
+        userTasks.push(newTask);
+        for (let i = 0; i < this.userData.userGroups.length; i++) {
+            if(this.userData.userGroups[i].groupInfo.groupId == groupID){
+                this.userData.userGroups[i].groupTask.push(newTask);
+            }
+        }
+    }
+
+    getGropuIdFromGTaskId(groupTaskId){
+        var ret = '';
+        const userGroups = this.userData.userGroups;
+        userGroups.forEach(group => {
+            const tasks = group.groupTask;
+            tasks.forEach(task => {
+                if(task.taskId == groupTaskId)ret = task.taskGroupId;
+            });
+        });
+        return ret
     }
 
 }
