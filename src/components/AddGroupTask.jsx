@@ -130,14 +130,6 @@ export function AddGroupTask(props) {
             }else{
               setIsPressed(true);
 
-              console.log({
-                groupId: groupId,
-                taskName: taskName,
-                taskContent: detail,
-                taskLimit: `${dateStr} ${timeStr}`,
-                addUserId: AppState.userData.userID
-              });
-
               // 新しいグループタスクの追加
              await axios.post('/addGroupTask', {
                 groupId: groupId,
