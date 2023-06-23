@@ -60,7 +60,9 @@ export function AddGroupTask(props) {
             /> */}
             <FormControl>
             <InputLabel id="select-label">グループを選択してください</InputLabel>
-            <Select onChange={(e)=>{setGroupId(e.target.value)}} defaultValue = "">
+            <Select onChange={(e)=>{setGroupId(e.target.value)}} defaultValue = ""
+                sx={{width: '28ch'}}
+            >
               {
                 groupList.map((elem) => {
                   return (

@@ -15,6 +15,7 @@ import { UserData } from "../utils/UserData";
 
 
 import axios from "axios";
+import { Group } from "@mui/icons-material";
 
 export function AddGroup(props) {
 
@@ -58,14 +59,17 @@ export function AddGroup(props) {
 				state === 1 &&
 				<div>
 					<div>
-					<FormControl sx={{ m: 1, minWidth: 80 }}>
+					<FormControl>
 						<InputLabel id="select-autowidth">グループ名</InputLabel>
 						<Select
 						labelId="demo-simple-select-autowidth-label"
 						id="demo-simple-select-autowidth"
-						value={''}
+						value={groupId}
 						onChange={(e)=>{setGroupId(e.target.value)}}
-						autoWidth
+						sx={{
+							width: '200px',
+							height: '55px',
+						  }}
 						label="groupName"
 						>
 						{groupList.map(item => (
