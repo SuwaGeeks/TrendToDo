@@ -100,12 +100,14 @@ export class UserData {
     // {title: "タスク２", limit: "yyyy/mm/dd"},
     // ]
     getPersonalTasks() {
-        const userTasks = this.userData.userTasks
+        console.log(this.userData);
+        const userTasks = this.userData.userTasks;
         const personalTasks = userTasks.map(elem => ({
             title: elem.taskName,
-            limit: elem.taskLimit
+            limit: elem.taskLimit,
+            finishedAt: elem.finishedAt,
+            id: elem.taskId
         }));
-
         return personalTasks;
     }
 

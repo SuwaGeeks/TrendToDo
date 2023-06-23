@@ -12,6 +12,8 @@ export const PersonalTaskList = (props) => {
       <PersonalTaskListItem
         title={elm.title}
         limit={elm.limit}
+        taskId={elm.id}
+        finishedAt={elm.finishedAt}
         key={elm.title}
       />
     )
