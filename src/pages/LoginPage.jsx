@@ -11,6 +11,7 @@ import "../FirebaseConfig"
 
 import { LoginStateAtom } from "../models/LoginStateAtom";
 import { useRecoilState } from "recoil"; 
+import axios from 'axios';
 
 export function LoginPage(props){
   const [isLoading, setIsLoading] = useState(true);
@@ -23,14 +24,27 @@ export function LoginPage(props){
     signInWithRedirect(auth, provider)
   }
 
-  useEffect(() => {
+  // ログイン後のリダイレクト結果を受け取る
+  const getRedirectResultFunc = async () => {
+    console.log("getRedirectResultFunc called.");
     getRedirectResult(auth)
       .then((result) => {
         if(result !== null) {
           const credential = GithubAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
 
           const user = result.user;
+
+          user.getIdToken().then(async idToken => {
+            console.log(idToken)
+
+            const sendData = {idToken: idToken};
+            
+            await axios.post(
+              'https://us-central1-trend-to-do.cloudfunctions.net/sessionLogin',
+              sendData,
+              {headers: {'Content-Type': 'application/json',}},
+            );
+          })
 
           setLoginState({userId: user.uid});
           console.log(user.uid)
@@ -39,12 +53,29 @@ export function LoginPage(props){
       })
       .catch((err) => {
         console.log(err);
-
-        const errorCode = err.code;
-        const errorMessage = err.message;
-        const email = err.email;
       })
-  })
+  }
+
+  // ログインCookieの確認
+  const checkLoginState = async () => {
+    console.log("checkLoginState called.");
+    await axios.post('https://us-central1-trend-to-do.cloudfunctions.net/checkLogin')
+      .then(res => {
+        if(res.status == 200) setLoginState({userId: res.data.userId})
+      })
+  }
+
+  // ログインCookieの確認
+  useEffect( () => {
+    console.log("effect called.");
+    if(loginState.userId == null)
+      getRedirectResultFunc()
+        .then(() => {
+          if(loginState.userId == null) checkLoginState().then(() => {
+            setIsLoading(false);
+          })
+        })
+  }, []);
 
 
   const [hasAccount, setValue] = useState(true);
