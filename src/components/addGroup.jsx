@@ -9,19 +9,17 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import { AppStateAtom } from "../models/AppStateAtom";
+import { GroupListAtom } from "../models/GroupListAtom";
 import { useRecoilState } from "recoil"; 
 
 import { UserData } from "../utils/UserData";
 
 
 import axios from "axios";
-import { Group } from "@mui/icons-material";
 
 export function AddGroup(props) {
 
 	const [AppState, setAppState] = useRecoilState(AppStateAtom);
-
-	const [groupList, setGroupList] = useState([]);
 
 	const [state, setState] = useState(0);
 	const [groupId, setGroupId] = useState('');
@@ -29,16 +27,21 @@ export function AddGroup(props) {
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [eMsg, setErrMsg] = useState('');
 
+  const [GroupList, setGroupList] = useRecoilState(GroupListAtom);
+
+
 	// グループリストの取得
 	useEffect(() => {
-		axios.post('/getGroupList') // Replace with your API endpoint
-		  .then(response => {
-			setGroupList(response.data.groups);
-		  })
-		  .catch(error => {
-			console.log(error);
-		  });
-	  }, []);
+    if(GroupList.length == 0) {
+      axios.post('/getGroupList') // Replace with your API endpoint
+        .then(response => {
+          setGroupList(response.data.groups);
+        })
+        .catch(error => {
+        console.log(error);
+        });
+    }
+	}, []);
 
 	return (
 		<div>
@@ -72,7 +75,7 @@ export function AddGroup(props) {
 						  }}
 						label="groupName"
 						>
-						{groupList.map(item => (
+						{GroupList.map(item => (
 							<MenuItem value={item.groupId} key={item.groupId}>{item.groupName}</MenuItem>
 							))}
 						</Select>

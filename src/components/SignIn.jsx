@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import { LoginStateAtom } from "../models/LoginStateAtom";
 import { AppStateAtom } from "../models/AppStateAtom";
 import { UserData } from "../utils/UserData";
+import { GroupListAtom } from '../models/GroupListAtom';
 
 export function SignIn(props){
   const provider = new GithubAuthProvider();
@@ -21,6 +22,18 @@ export function SignIn(props){
   const [dialogOpen, setDialogOpen] = useState(false);
   const [loginState, setLoginState] = useRecoilState(LoginStateAtom);
   const [AppState, setAppState] = useRecoilState(AppStateAtom);
+  const [GroupList, setGroupList] = useRecoilState(GroupListAtom);
+
+  // グループの一覧を取得する
+  const getGroupList = async () => {
+    await axios.post('/getGroupList') // Replace with your API endpoint
+      .then(response => {
+        setGroupList(response.data.groups);
+      })
+      .catch(error => {
+      console.log(error);
+      });
+  }
 
   const handleClose = () => {
     setDialogOpen(false);
@@ -58,6 +71,7 @@ export function SignIn(props){
 
                 Cookies.set('userId', user.uid);
 
+                if(GroupList.length == 0) await getGroupList();
                 setAppState({userData: await UserData.init(user.uid)})
                 setLoginState({userId: user.uid});
               })

@@ -11,16 +11,31 @@ import "../FirebaseConfig"
 import { useRecoilState } from "recoil"; 
 import { LoginStateAtom } from "../models/LoginStateAtom";
 import { AppStateAtom } from "../models/AppStateAtom";
+import { GroupListAtom } from '../models/GroupListAtom';
 
 import { UserData } from "../utils/UserData";
 import Cookies from 'js-cookie';
+
+import axios from "axios";
 
 export function LoginPage(props){
   const [isLoading, setIsLoading] = useState(true);
   const [loginState, setLoginState] = useRecoilState(LoginStateAtom);
   const [AppState, setAppState] = useRecoilState(AppStateAtom);
+  const [GroupList, setGroupList] = useRecoilState(GroupListAtom);
 
   const auth = new getAuth();
+
+  // グループの一覧を取得する
+  const getGroupList = async () => {
+    await axios.post('/getGroupList') // Replace with your API endpoint
+      .then(response => {
+        setGroupList(response.data.groups);
+      })
+      .catch(error => {
+      console.log(error);
+      });
+  }
 
   // ログイン後のリダイレクト結果を受け取る
   const getRedirectResultFunc = async () => {
@@ -34,7 +49,8 @@ export function LoginPage(props){
           // cookieにログイン状況を保存
           Cookies.set('userId', user.uid);
 
-          setAppState({userData: await UserData.init(user.uid)})
+          if(GroupList.length == 0) await getGroupList();
+          setAppState({userData: await UserData.init(user.uid)});
           setLoginState({userId: user.uid});
         }
       })
@@ -47,6 +63,7 @@ export function LoginPage(props){
   const checkLoginState = async () => {
     const userId = Cookies.get('userId');
     if(typeof userId == 'string') {
+      if(GroupList.length == 0) await getGroupList();
       setAppState({userData: await UserData.init(userId)})
       setLoginState({userId: userId});
     }
