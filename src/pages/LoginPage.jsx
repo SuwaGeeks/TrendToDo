@@ -53,6 +53,7 @@ export function LoginPage(props){
   const checkLoginState = async () => {
     const userId = Cookies.get('userId');
     if(typeof userId == 'string') {
+      setAppState({userData: await UserData.init(userId)})
       setLoginState({userId: userId});
     }
   }
