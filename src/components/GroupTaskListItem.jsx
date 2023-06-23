@@ -9,6 +9,14 @@ export const GroupTaskListItem = (props) => {
   const data = props.data;
   const [AppState, setAppState] = useRecoilState(AppStateAtom);
 
+  function sec2Time(_sec) {
+    const parsed = parseInt(_sec);
+    const hour = Math.floor(parsed / 3600);
+    const min = Math.floor((parsed % 3600) / 60);
+    const sec = parsed % 60;
+    return `${hour}:${min}:${sec}`;  
+  }
+
   return (
     <Link to='/donetask' onClick={(e) => {
       if(data.isFinished)e.preventDefault();
@@ -29,7 +37,7 @@ export const GroupTaskListItem = (props) => {
             <SentimentSatisfiedAlt sx={{fontSize: 15}}  />
             <Typography
               variant='body2'
-              children={data.eva}
+              children={data.eva.toPrecision(3)}
             />
           </Stack>
 
@@ -38,7 +46,7 @@ export const GroupTaskListItem = (props) => {
             <AccessTime sx={{fontSize: 15}} />
             <Typography
               variant='body2'
-              children={data.meanTime}
+              children={sec2Time(data.meanTime)}
               noWrap
             />
           </Stack>
