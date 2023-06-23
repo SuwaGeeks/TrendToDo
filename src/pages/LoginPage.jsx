@@ -14,6 +14,7 @@ import { AppStateAtom } from "../models/AppStateAtom";
 import { useRecoilState } from "recoil"; 
 
 import { UserData } from "../utils/UserData";
+import Cookies from 'js-cookie';
 
 export function LoginPage(props){
   const [isLoading, setIsLoading] = useState(true);
@@ -27,29 +28,46 @@ export function LoginPage(props){
     signInWithRedirect(auth, provider)
   }
 
-  useEffect(() => {
-    getRedirectResult(auth)
+  // ログイン後のリダイレクト結果を受け取る
+  const getRedirectResultFunc = async () => {
+    await getRedirectResult(auth)
       .then(async (result) => {
         if(result !== null) {
           const credential = GithubAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
 
           const user = result.user;
+          
+          // cookieにログイン状況を保存
+          Cookies.set('userId', user.uid);
 
           setAppState({userData: await UserData.init(user.uid)})
           setLoginState({userId: user.uid});
-          console.log(user.uid)
         }
-        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
-
-        const errorCode = err.code;
-        const errorMessage = err.message;
-        const email = err.email;
       })
-  })
+  }
+
+  // ログインCookieの確認
+  const checkLoginState = async () => {
+    const userId = Cookies.get('userId');
+    if(typeof userId == 'string') {
+      setAppState({userData: await UserData.init(userId)})
+      setLoginState({userId: userId});
+    }
+  }
+
+  // ログインCookieの確認
+  useEffect( () => {
+    if(loginState.userId == null)
+      getRedirectResultFunc()
+        .then(() => {
+          if(loginState.userId == null) checkLoginState().then(() => {
+            if(loginState.userId == null) setIsLoading(false);
+          })
+        })
+  }, []);
 
 
   const [hasAccount, setValue] = useState(true);
