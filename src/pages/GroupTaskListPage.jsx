@@ -29,6 +29,7 @@ export const GroupTaskListPage = () => {
             <Task />
             <Typography variant='h5' children="グループタスク" />
           </Stack>
+          <AddGroup/>
           <Typography children={AppState.userData.getNumOfGroupTasks()+'つのタスクが残っています。'} align='left' />
           <Stack spacing={3}>
             {
@@ -41,7 +42,6 @@ export const GroupTaskListPage = () => {
           </Stack>
         </Stack>
       </Stack>
-      <AddGroup/>
       <Footer />
     </>
   )

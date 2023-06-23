@@ -46,6 +46,7 @@ export function HomePage(props) {
             <Task />
             <Typography variant='h5' children="グループタスク" />
           </Stack>
+          <AddGroup/>
           <Typography children={AppState.userData.getNumOfGroupTasks()+'つのタスクが残っています。'} align='left' />
           <Stack spacing={3}>
             {
@@ -58,7 +59,6 @@ export function HomePage(props) {
           </Stack>
         </Stack>
       </Stack>
-      <AddGroup/>
       <Footer />
     </>
   );

@@ -50,7 +50,7 @@ export function AddGroup(props) {
 						グループ参加
 					</Button>
 					<Button variant="outlined" startIcon={<GroupAdd />} onClick={()=>{setState(3)}}>
-						グループ追加
+						グループ作成
 					</Button>
 				</div>
 			}
