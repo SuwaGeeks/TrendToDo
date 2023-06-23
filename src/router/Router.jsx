@@ -23,7 +23,7 @@ export const Router = () => {
     return (
       <BrowserRouter>
         <Routes>
-          <Route  path={'/'} Component={HomePage} />
+          <Route path={'/'} Component={HomePage} />
           <Route path={'/personal_task'} Component={PersonalTaskListPage} />
           <Route path={'/group_task'} Component={GroupTaskListPage} />
           <Route path={'/addPersonalTask'} Component={AddPersonalTask} />
