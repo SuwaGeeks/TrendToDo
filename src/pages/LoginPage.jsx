@@ -11,7 +11,8 @@ import "../FirebaseConfig"
 
 import { LoginStateAtom } from "../models/LoginStateAtom";
 import { useRecoilState } from "recoil"; 
-import axios from 'axios';
+
+import Cookies from 'js-cookie';
 
 export function LoginPage(props){
   const [isLoading, setIsLoading] = useState(true);
@@ -26,30 +27,18 @@ export function LoginPage(props){
 
   // ログイン後のリダイレクト結果を受け取る
   const getRedirectResultFunc = async () => {
-    console.log("getRedirectResultFunc called.");
-    getRedirectResult(auth)
+    await getRedirectResult(auth)
       .then((result) => {
         if(result !== null) {
           const credential = GithubAuthProvider.credentialFromResult(result);
 
           const user = result.user;
-
-          user.getIdToken().then(async idToken => {
-            console.log(idToken)
-
-            const sendData = {idToken: idToken};
-            
-            await axios.post(
-              'https://us-central1-trend-to-do.cloudfunctions.net/sessionLogin',
-              sendData,
-              {headers: {'Content-Type': 'application/json',}},
-            );
-          })
+          
+          // cookieにログイン状況を保存
+          Cookies.set('userId', user.uid);
 
           setLoginState({userId: user.uid});
-          console.log(user.uid)
         }
-        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -58,21 +47,19 @@ export function LoginPage(props){
 
   // ログインCookieの確認
   const checkLoginState = async () => {
-    console.log("checkLoginState called.");
-    await axios.post('https://us-central1-trend-to-do.cloudfunctions.net/checkLogin')
-      .then(res => {
-        if(res.status == 200) setLoginState({userId: res.data.userId})
-      })
+    const userId = Cookies.get('userId');
+    if(typeof userId == 'string') {
+      setLoginState({userId: userId});
+    }
   }
 
   // ログインCookieの確認
   useEffect( () => {
-    console.log("effect called.");
     if(loginState.userId == null)
       getRedirectResultFunc()
         .then(() => {
           if(loginState.userId == null) checkLoginState().then(() => {
-            setIsLoading(false);
+            if(loginState.userId == null) setIsLoading(false);
           })
         })
   }, []);
