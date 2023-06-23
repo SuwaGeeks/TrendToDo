@@ -67,7 +67,9 @@ export class UserData {
                 limit: elem.taskLimit,
                 eva: elem.taskWeight,
                 meanTime: elem.meanTime,
-                id: elem.taskId
+                isFinished: elem.finished,
+                id: elem.taskId,
+                gid: elem.taskGroupID
             }));
 
             return groupTasks;
@@ -126,16 +128,16 @@ export class UserData {
         }
     }
 
-    getGropuIdFromGTaskId(groupTaskId){
-        var ret = '';
-        const userGroups = this.userData.userGroups;
-        userGroups.forEach(group => {
-            const tasks = group.groupTask;
-            tasks.forEach(task => {
-                if(task.taskId == groupTaskId)ret = task.taskGroupId;
-            });
-        });
-        return ret
+    // グループタスクをfinishedにする
+    finishGroupTask(taskId, groupId){
+        for (let i = 0; i < this.userData.userGroups.length; i++) {
+            for (let j = 0; j < this.userData.userGroups[i].groupTask.length; j++) {
+                const elem = this.userData.userGroups[i].groupTask[j];
+                if(elem.taskId == taskId && elem.taskGroupId == groupId){
+                    this.userData.userGroups[i].groupTask[j].finished = true;
+                }
+            }
+        }
     }
 
 }

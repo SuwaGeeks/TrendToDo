@@ -11,12 +11,13 @@ export const GroupTaskListItem = (props) => {
 
   return (
     <Link to='/donetask' onClick={(e) => {
-      setAppState({selectedGroupTaskId: data.id, userData:AppState.userData});
+      if(data.isFinished)e.preventDefault();
+      setAppState({selectedGroupTaskId: {id:data.id, gid:data.gid}, userData:AppState.userData});
     }}>
     <Stack>
       {/* タスク名 */}
       <Typography
-        children={data.title}
+        children={(data.isFinished)?`${data.title}【完了】`:`${data.title}`}
         align='left'
         sx={{py: "5px"}}
         noWrap

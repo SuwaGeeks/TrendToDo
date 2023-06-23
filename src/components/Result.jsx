@@ -17,7 +17,7 @@ export function Result(props) {
 
   const [AppState, setAppState] = useRecoilState(AppStateAtom);
   const [taskTime, setTaskTime] = useState(0);
-  const [taskWeight, setTaskWeight] = useState(0);
+  const [taskWeight, setTaskWeight] = useState(3);
   
 
   return (
@@ -68,14 +68,24 @@ export function Result(props) {
 
       <Stack direction="row" spacing={2}>
       <Link to='/' onClick={(e) => {
+        console.log({
+          userId: AppState.userData.userID,
+          groupId: AppState.selectedGroupTaskId.gid,
+          taskId: AppState.selectedGroupTaskId.id,
+          evaluation: taskWeight,
+          time: taskTime
+        });
         axios.post('/submitGroupTask', {
           userId: AppState.userData.userID,
-          groupId: AppState.userData.getGropuIdFromGTaskId(AppState.selectedGroupTaskId),
-          taskId: AppState.selectedGroupTaskId,
+          groupId: AppState.selectedGroupTaskId.gid,
+          taskId: AppState.selectedGroupTaskId.id,
           evaluation: taskWeight,
           time: taskTime
         }).then(res => {
-
+          console.log(res.data.task);
+          const taskId = res.data.task.taskId;
+          const groupId = res.data.task.taskGroupID;
+          AppState.userData.finishGroupTask(taskId, groupId)
         }).catch(err => {
           console.log(err);
         })

@@ -11,7 +11,7 @@ import { useRecoilState } from 'recoil';
 export function DoneTask(props) {
 
   const [AppState, setAppState] = useRecoilState(AppStateAtom);
-  const task = AppState.userData.getGropuTaskFromId(AppState.selectedGroupTaskId);
+  const task = AppState.userData.getGropuTaskFromId(AppState.selectedGroupTaskId.id);
 
   return (
     <div className='Dmenu'>
