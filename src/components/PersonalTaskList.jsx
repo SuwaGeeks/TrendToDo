@@ -3,20 +3,17 @@ import { Stack, Divider } from '@mui/material';
 import { PersonalTaskListItem } from './PersonalTaskListItem';
 import { PersonalTaskListItemAddTask } from './PersonalTaskListItemAddTask';
 
-export const PersonalTaskList = () => {
-  const sampleData = [
-    {title: "タスク１", limit: "yyyy/mm/dd"},
-    {title: "タスク２", limit: "yyyy/mm/dd"},
-    {title: "タスク１タスク１タスク１タスク１タスク１タスク１タスク１", limit: "yyyy/mm/dd"},
-    {title: "タスク４", limit: null},
-    {title: "タスク５", limit: "yyyy/mm/dd"},
-  ]
+export const PersonalTaskList = (props) => {
+
+  const sampleData = props.userData.getPersonalTasks();
 
   const ListData = sampleData.map((elm, index) => {
     return (
       <PersonalTaskListItem
         title={elm.title}
         limit={elm.limit}
+        taskId={elm.id}
+        finishedAt={elm.finishedAt}
         key={elm.title}
       />
     )

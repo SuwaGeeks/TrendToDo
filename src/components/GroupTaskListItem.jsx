@@ -1,14 +1,39 @@
 import { Stack, Checkbox, Typography } from '@mui/material'
 import { CalendarMonth, SentimentSatisfiedAlt, AccessTime } from '@mui/icons-material';
+import {Link} from 'react-router-dom';
+
+import { AppStateAtom } from '../models/AppStateAtom';
+import { useRecoilState } from 'recoil';
 
 export const GroupTaskListItem = (props) => {
   const data = props.data;
+  const [AppState, setAppState] = useRecoilState(AppStateAtom);
+
+  function sec2Time(_sec) {
+    const parsed = parseInt(_sec);
+    const hour = Math.floor(parsed / 3600);
+    const min = Math.floor((parsed % 3600) / 60);
+    const sec = parsed % 60;
+    
+    var timeStr = "";
+    if(min < 10) timeStr += "0" + min + ":";
+    else timeStr += min + ":"
+
+    if(sec < 10) timeStr += "0" + sec;
+    else timeStr += sec;
+
+    return timeStr;  
+  }
 
   return (
+    <Link to='/donetask' onClick={(e) => {
+      if(data.isFinished)e.preventDefault();
+      setAppState({selectedGroupTaskId: {id:data.id, gid:data.gid}, userData:AppState.userData});
+    }}>
     <Stack>
       {/* タスク名 */}
       <Typography
-        children={data.title}
+        children={(data.isFinished)?`${data.title}【完了】`:`${data.title}`}
         align='left'
         sx={{py: "5px"}}
         noWrap
@@ -20,7 +45,7 @@ export const GroupTaskListItem = (props) => {
             <SentimentSatisfiedAlt sx={{fontSize: 15}}  />
             <Typography
               variant='body2'
-              children={data.eva}
+              children={data.eva.toPrecision(3)}
             />
           </Stack>
 
@@ -29,7 +54,7 @@ export const GroupTaskListItem = (props) => {
             <AccessTime sx={{fontSize: 15}} />
             <Typography
               variant='body2'
-              children={data.meanTime}
+              children={sec2Time(data.meanTime)}
               noWrap
             />
           </Stack>
@@ -50,5 +75,6 @@ export const GroupTaskListItem = (props) => {
         </Stack>
       </Stack>
     </Stack>
+    </Link>
   )
 }

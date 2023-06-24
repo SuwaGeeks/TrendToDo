@@ -68,12 +68,10 @@ code {
 
 .Dback{
   text-align: left;
-  float: left;
-  clear: left;
 }
 
 .Dtitle{
-  text-align: left;
+  text-align: center;
   clear: right;
   font-size: larger;
 }
@@ -95,17 +93,15 @@ code {
 }
 
 .Dbutton{
-  margin-top: 20px;
+  margin-top: '20px';
+   position: 'fixed';
+    left: '0';
+    bottom: '0';
+    width: '100%';
+    text-align:'left'; 
 }
 
 /* 完了画面 */
-.Rtime{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .RAll{
   margin: 0 auto;
 }
