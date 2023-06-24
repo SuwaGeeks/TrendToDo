@@ -14,7 +14,15 @@ export const GroupTaskListItem = (props) => {
     const hour = Math.floor(parsed / 3600);
     const min = Math.floor((parsed % 3600) / 60);
     const sec = parsed % 60;
-    return `${hour}:${min}:${sec}`;  
+    
+    var timeStr = "";
+    if(min < 10) timeStr += "0" + min + ":";
+    else timeStr += min + ":"
+
+    if(sec < 10) timeStr += "0" + sec;
+    else timeStr += sec;
+
+    return timeStr;  
   }
 
   return (
