@@ -1,14 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
 import GroupAdd from '@mui/icons-material/GroupAdd';
 import TextField from '@mui/material/TextField';
-import { joinGroup, createGroup } from "../utils/GroupTask";
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+import { AppStateAtom } from "../models/AppStateAtom";
+import { GroupListAtom } from "../models/GroupListAtom";
+import { useRecoilState } from "recoil"; 
+
+import { UserData } from "../utils/UserData";
+
+
+import axios from "axios";
 
 export function AddGroup(props) {
+
+	const [AppState, setAppState] = useRecoilState(AppStateAtom);
+
 	const [state, setState] = useState(0);
+	const [groupId, setGroupId] = useState('');
 	const [groupName, setGroupName] = useState('');
 	const [isCorrect, setIsCorrect] = useState(false);
 	const [eMsg, setErrMsg] = useState('');
+
+  const [GroupList, setGroupList] = useRecoilState(GroupListAtom);
+
+
+	// グループリストの取得
+	useEffect(() => {
+    if(GroupList.length == 0) {
+      axios.post('/getGroupList') // Replace with your API endpoint
+        .then(response => {
+          setGroupList(response.data.groups);
+        })
+        .catch(error => {
+        console.log(error);
+        });
+    }
+	}, []);
 
 	return (
 		<div>
@@ -20,7 +53,7 @@ export function AddGroup(props) {
 						グループ参加
 					</Button>
 					<Button variant="outlined" startIcon={<GroupAdd />} onClick={()=>{setState(3)}}>
-						グループ追加
+						グループ作成
 					</Button>
 				</div>
 			}
@@ -29,15 +62,24 @@ export function AddGroup(props) {
 				state === 1 &&
 				<div>
 					<div>
-						<TextField
-							id="outlined-password-input"
-							label="グループ名"
-							type="name"
-							autoComplete="current-password"
-							helperText={(isCorrect) ? eMsg : ""}
-							onChange={(e)=>{setGroupName(e.target.value)}}
-							error={isCorrect}
-						/>
+					<FormControl>
+						<InputLabel id="select-autowidth">グループ名</InputLabel>
+						<Select
+						labelId="demo-simple-select-autowidth-label"
+						id="demo-simple-select-autowidth"
+						value={groupId}
+						onChange={(e)=>{setGroupId(e.target.value)}}
+						sx={{
+							width: '200px',
+							height: '55px',
+						  }}
+						label="groupName"
+						>
+						{GroupList.map(item => (
+							<MenuItem value={item.groupId} key={item.groupId}>{item.groupName}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
 					</div>
 					<div>
 						<Button variant="outlined" endIcon={<GroupAdd />} onClick={()=>{
@@ -46,9 +88,13 @@ export function AddGroup(props) {
 							戻る
 						</Button>
 						<Button variant="contained" endIcon={<GroupAdd />} onClick={()=>{
-							joinGroup(props.userID, groupName).then(res => {
+							axios.post('/joinGroup', {
+								groupId: groupId,
+								userId: AppState.userData.userID
+							}).then(async res => {
 								console.log(res.data);
 								if(res.data.message){
+									setAppState({userData: await UserData.init(AppState.userData.userID)});
 									setIsCorrect(true);
 									setErrMsg(res.data.message);
 								}else{
@@ -97,11 +143,14 @@ export function AddGroup(props) {
 							戻る
 						</Button>
 						<Button variant="contained" endIcon={<GroupAdd />} onClick={()=>{
-							createGroup(groupName).then(res => {
-								console.log(res);
+							axios.post('/createGroup',{
+								groupName: groupName
+							  }).then(async res => {
+								// 再読み込み
+								setAppState({userData: await UserData.init(AppState.userData.userID)});
 								setState(2);
 								setIsCorrect(false);
-							});
+							  });
 						}}>
 							追加
 						</Button>
