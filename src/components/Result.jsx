@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import TextField from '@mui/material/TextField';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -13,16 +13,22 @@ import { useState } from 'react'
 import { AppStateAtom } from '../models/AppStateAtom';
 import { useRecoilState } from 'recoil';
 
+import { Loading } from './Loading';
+
 export function Result(props) {
 
   const [AppState, setAppState] = useRecoilState(AppStateAtom);
   const [taskTime, setTaskTime] = useState(0);
   const [taskWeight, setTaskWeight] = useState(3);
-  
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   return (
-    <div className='RAll'>
-      <div className='Rtime'>
+    <>
+      <Loading open={isLoading} />
+
+      <div>
         <h1>所要時間</h1>
         <Box
           component="form"
@@ -48,8 +54,7 @@ export function Result(props) {
 
       <div>
         <h1>大変さ</h1>
-        <div className='Rtime'>
-        <Box sx={{ width: 300 }}>
+        <Box sx={{px: "30px"}} alignItems="center" justifyItems="center">
           <Slider
             aria-label="Temperature"
             defaultValue={3}
@@ -61,44 +66,43 @@ export function Result(props) {
             onChange={(e)=>{setTaskWeight(e.target.value)}}
           />
         </Box>
-        </div>
       </div>
 
-      <div className='Dline'></div>
+      <Stack direction="row" justifyContent="center" spacing={2} sx={{py: "40px"}}>
+        <Button
+          onClick={ async () => {
+            setIsLoading(true);
+            const sendData = {
+              userId: AppState.userData.userID,
+              groupId: AppState.selectedGroupTaskId.gid,
+              taskId: AppState.selectedGroupTaskId.id,
+              evaluation: taskWeight,
+              time: taskTime
+            };
 
-      <Stack direction="row" spacing={2}>
-      <Link to='/' onClick={(e) => {
-        console.log({
-          userId: AppState.userData.userID,
-          groupId: AppState.selectedGroupTaskId.gid,
-          taskId: AppState.selectedGroupTaskId.id,
-          evaluation: taskWeight,
-          time: taskTime
-        });
-        axios.post('/submitGroupTask', {
-          userId: AppState.userData.userID,
-          groupId: AppState.selectedGroupTaskId.gid,
-          taskId: AppState.selectedGroupTaskId.id,
-          evaluation: taskWeight,
-          time: taskTime
-        }).then(res => {
-          console.log(res.data.task);
-          const taskId = res.data.task.taskId;
-          const groupId = res.data.task.taskGroupID;
-          AppState.userData.finishGroupTask(taskId, groupId)
-        }).catch(err => {
-          console.log(err);
-        })
-      }}>
-        <Button variant="contained" >
-            決定
-          </Button></Link>
-          <Link to='/donetask'>
-        <Button variant="contained" >
-            戻る
-          </Button></Link>
+            console.log(sendData);
+            await axios.post('/submitGroupTask', sendData)
+              .then(res => {
+                console.log(res.data.task);
+                const taskId = res.data.task.taskId;
+                const groupId = res.data.task.taskGroupID;
+                AppState.userData.finishGroupTask(taskId, groupId)
+              }).catch(err => {
+                console.log(err)
+              })
+            setIsLoading(false);
+            navigate('/');
+          }}
+          variant='contained'
+          children="決定"
+        />
+        <Button 
+          variant="contained"
+          onClick={() => {navigate('/donetask');}}
+          children="戻る"
+        />
       </Stack>
-    </div>
+    </>
 
   );
 }

@@ -102,13 +102,6 @@ code {
 }
 
 /* 完了画面 */
-.Rtime{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .RAll{
   margin: 0 auto;
 }

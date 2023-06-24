@@ -47,7 +47,7 @@ export function DoneTask(props) {
           タスク完了
         </Button>
       </Link>
-      <Link to='/personal_task'>
+      <Link to='/group_task'>
         <Button variant="contained" >
           キャンセル
         </Button>
